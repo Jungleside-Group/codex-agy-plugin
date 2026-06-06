@@ -63,7 +63,7 @@ The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wr
 ## Repository Layout
 
 ```text
-marketplace.json
+.agents/plugins/marketplace.json
 plugins/
   codex-agy-plugin/
     .codex-plugin/plugin.json
@@ -78,4 +78,3 @@ plugins/
 ## License
 
 MIT
-
