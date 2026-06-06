@@ -1,0 +1,32 @@
+{
+  "name": "codex-agy-plugin",
+  "version": "0.1.0",
+  "description": "Antigravity CLI (agy) integration for OpenAI Codex.",
+  "author": {
+    "name": "sysCat64",
+    "url": "https://github.com/sysCat64"
+  },
+  "repository": "https://github.com/sysCat64/codex-agy-plugin",
+  "homepage": "https://github.com/sysCat64/codex-agy-plugin",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "antigravity",
+    "agy",
+    "plugin"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex Agy",
+    "shortDescription": "Delegate prompts and code review from Codex to Antigravity CLI.",
+    "longDescription": "Codex Agy lets Codex call the local Antigravity CLI (agy) for second opinions, code review, planning, and delegated analysis.",
+    "developerName": "sysCat64",
+    "category": "Productivity",
+    "capabilities": [
+      "Run Antigravity CLI from Codex",
+      "Request second-opinion reviews",
+      "Delegate planning and analysis"
+    ],
+    "defaultPrompt": "Use Antigravity CLI to review the current task."
+  }
+}
