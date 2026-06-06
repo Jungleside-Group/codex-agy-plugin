@@ -34,6 +34,7 @@ require_contains "$readme" 'scripts/validate-install\.sh' 'README includes insta
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh' 'README includes repo checkout wrapper path'
 require_contains "$readme" 'Repository root `scripts/validate\*\.sh` files are development validators' 'README explains root validation scripts'
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh` is the runtime wrapper' 'README explains plugin runtime wrapper'
+require_contains "$readme" '^[[:space:]]*LICENSE$' 'README includes distributed plugin license'
 require_contains "$readme" '^[[:space:]]*plugins/codex-agy-plugin/scripts/agy-print\.sh -- "-starting prompt text"' 'README documents dash-prefixed prompts'
 
 require_contains "$skill" 'Resolve an absolute wrapper path from the installed skill file location' 'SKILL explains installed absolute wrapper resolution'

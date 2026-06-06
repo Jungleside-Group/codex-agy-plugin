@@ -95,6 +95,7 @@ scripts/validate-install.sh
 plugins/
   codex-agy-plugin/
     .codex-plugin/plugin.json
+    LICENSE
     skills/agy/SKILL.md
     scripts/agy-print.sh
 scripts/validate.sh

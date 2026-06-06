@@ -5,6 +5,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 marketplace="$root/.agents/plugins/marketplace.json"
 plugin_root="$root/plugins/codex-agy-plugin"
 plugin_manifest="$plugin_root/.codex-plugin/plugin.json"
+plugin_license="$plugin_root/LICENSE"
 skill="$plugin_root/skills/agy/SKILL.md"
 wrapper="$plugin_root/scripts/agy-print.sh"
 mock_bin="$(mktemp -d "${TMPDIR:-/tmp}/codex-agy-validate.XXXXXX")"
@@ -18,16 +19,36 @@ require_file() {
   fi
 }
 
+require_command() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    printf 'Required command not found on PATH: %s\n' "$1" >&2
+    exit 127
+  fi
+}
+
+require_command python3
 require_file "$marketplace"
 require_file "$plugin_manifest"
+require_file "$plugin_license"
 require_file "$skill"
 require_file "$wrapper"
 
-expected_plugin_files=$'.codex-plugin/plugin.json\nscripts/agy-print.sh\nskills/agy/SKILL.md'
-if git -C "$root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  actual_plugin_files="$(git -C "$root" ls-files -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | sort)"
+expected_plugin_files=$'.codex-plugin/plugin.json\nLICENSE\nscripts/agy-print.sh\nskills/agy/SKILL.md'
+if command -v git >/dev/null 2>&1 && git -C "$root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  actual_plugin_files="$(git -C "$root" ls-files --cached --others --exclude-standard -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | sort)"
 else
-  actual_plugin_files="$(cd "$plugin_root" && find . -type f -print | sed 's#^\./##' | sort)"
+  actual_plugin_files="$(
+    cd "$plugin_root" &&
+      find . -type f \
+        ! -name '.DS_Store' \
+        ! -name '*.log' \
+        ! -path './.codex-cache/*' \
+        ! -path './.hyperweave/*' \
+        ! -path './.tmp/*' \
+        -print |
+      sed 's#^\./##' |
+      sort
+  )"
 fi
 
 if [[ "$actual_plugin_files" != "$expected_plugin_files" ]]; then

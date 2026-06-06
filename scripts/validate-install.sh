@@ -23,10 +23,10 @@ if [[ -z "$installed_root" ]]; then
 fi
 
 test -f "$installed_root/.codex-plugin/plugin.json"
+test -f "$installed_root/LICENSE"
 test -f "$installed_root/skills/agy/SKILL.md"
 test -x "$installed_root/scripts/agy-print.sh"
 
 CODEX_HOME="$tmp_home" codex plugin list | grep -q 'codex-agy-plugin@codex-agy-plugin'
 
 printf 'Install validation passed: %s\n' "$installed_root"
-
