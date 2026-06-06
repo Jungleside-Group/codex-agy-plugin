@@ -10,7 +10,7 @@ Use the local Antigravity CLI (`agy`) as a second agent from inside Codex.
 ## Before Invoking
 
 1. Inspect enough local context to form a bounded prompt.
-2. Check that `agy` is installed with `command -v agy` and `agy --version`. This plugin is tested with `agy 1.0.6` and expects compatible `agy --print "prompt" --print-timeout 10m` behavior.
+2. Check that `agy` is installed with `command -v agy` and `agy --version`. This plugin is tested with `agy 1.0.6`; use a version with compatible `agy --print "prompt" --print-timeout 10m` behavior.
 3. Do not install, update, or authenticate `agy` unless the user explicitly asks.
 4. Do not pass secrets, credentials, private keys, tokens, or unrelated personal data into prompts.
 5. Prefer small, explicit prompts that name the repository, relevant files, current goal, and exact output requested.
@@ -30,16 +30,20 @@ For reviews and second opinions, include a no-write instruction in the prompt:
 agy --print "Review the current diff. Do not modify files, run write commands, or apply patches. Return findings only."
 ```
 
-This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relative to this skill directory. Resolve that path from the installed skill file or plugin root, not from the target repository being reviewed. Do not run `../../scripts/agy-print.sh` as a literal path from the target repository's current working directory. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling:
+This plugin also includes a small wrapper at `scripts/agy-print.sh` under the installed plugin root. Resolve an absolute wrapper path from the installed skill file location, not from the target repository being reviewed. For example, if this skill file is installed at `/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md`, the wrapper is `/absolute/path/to/codex-agy-plugin/scripts/agy-print.sh`. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling:
 
 ```bash
-../../scripts/agy-print.sh --add-dir /absolute/path/to/repo "Review the current diff."
+skill_path="/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md"
+wrapper="$(cd "$(dirname "$skill_path")/../.." && pwd)/scripts/agy-print.sh"
+"$wrapper" --add-dir /absolute/path/to/repo "Review the current diff."
 ```
 
 If the prompt starts with `-`, pass `--` before the prompt:
 
 ```bash
-../../scripts/agy-print.sh -- "-starting prompt text"
+skill_path="/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md"
+wrapper="$(cd "$(dirname "$skill_path")/../.." && pwd)/scripts/agy-print.sh"
+"$wrapper" -- "-starting prompt text"
 ```
 
 Use a bounded timeout when the request may take longer:

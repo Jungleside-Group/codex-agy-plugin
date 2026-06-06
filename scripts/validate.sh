@@ -24,7 +24,11 @@ require_file "$skill"
 require_file "$wrapper"
 
 expected_plugin_files=$'.codex-plugin/plugin.json\nscripts/agy-print.sh\nskills/agy/SKILL.md'
-actual_plugin_files="$(cd "$plugin_root" && find . -type f -print | sed 's#^\./##' | sort)"
+if git -C "$root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  actual_plugin_files="$(git -C "$root" ls-files -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | sort)"
+else
+  actual_plugin_files="$(cd "$plugin_root" && find . -type f -print | sed 's#^\./##' | sort)"
+fi
 
 if [[ "$actual_plugin_files" != "$expected_plugin_files" ]]; then
   printf 'Unexpected files under plugin source: %s\nExpected:\n%s\nActual:\n%s\n' "$plugin_root" "$expected_plugin_files" "$actual_plugin_files" >&2

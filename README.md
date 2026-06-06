@@ -11,7 +11,7 @@ Experimental private MVP.
 ## Requirements
 
 - Codex with plugin support.
-- Antigravity CLI installed, authenticated, available as `agy`, and compatible with `agy 1.0.6` print-mode arguments.
+- Antigravity CLI installed, authenticated, available as `agy`; this plugin is tested with `agy 1.0.6` and compatible print-mode arguments.
 - A trusted local workspace. Do not send secrets or unrelated private data to delegated prompts.
 
 Check the local CLI:
@@ -60,6 +60,8 @@ Codex will use `agy --print` for non-interactive runs by default.
 
 The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wrapper around `agy --print --print-timeout 10m`.
 That path is for this repository checkout; installed Codex skills should resolve the wrapper from the plugin skill directory.
+
+Repository root `scripts/validate*.sh` files are development validators. `plugins/codex-agy-plugin/scripts/agy-print.sh` is the runtime wrapper shipped with the plugin.
 
 ```bash
 plugins/codex-agy-plugin/scripts/agy-print.sh --print-timeout 15m "Review this repository. Do not modify files. Return findings only."
