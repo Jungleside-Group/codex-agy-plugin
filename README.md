@@ -95,6 +95,12 @@ scripts/validate-install.sh
 
 `scripts/validate-install.sh` is a local smoke test because GitHub-hosted runners do not provide the Codex CLI by default.
 
+Before making the repository public or tagging a release, run the combined local readiness check:
+
+```bash
+scripts/test-public-readiness.sh
+```
+
 ## Repository Layout
 
 ```text
@@ -108,6 +114,7 @@ plugins/
 scripts/validate.sh
 scripts/validate-docs.sh
 scripts/validate-install.sh
+scripts/test-public-readiness.sh
 ```
 
 ## Notes
