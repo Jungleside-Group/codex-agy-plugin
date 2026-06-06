@@ -90,6 +90,8 @@ scripts/validate-docs.sh
 scripts/validate-install.sh
 ```
 
+`scripts/validate-install.sh` is a local smoke test because GitHub-hosted runners do not provide the Codex CLI by default.
+
 ## Repository Layout
 
 ```text

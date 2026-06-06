@@ -43,7 +43,7 @@ fi
 # Keep this list strict so newly bundled plugin files are deliberate.
 expected_plugin_files=$'.codex-plugin/plugin.json\nLICENSE\nscripts/agy-print.sh\nskills/agy/SKILL.md'
 if command -v git >/dev/null 2>&1 && git -C "$root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  actual_plugin_files="$(git -C "$root" ls-files --cached --others --exclude-standard -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | sort)"
+  actual_plugin_files="$(git -C "$root" ls-files --cached --others --exclude-standard -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | LC_ALL=C sort)"
 else
   actual_plugin_files="$(
     cd "$plugin_root" &&
@@ -58,7 +58,7 @@ else
         ! -path './.tmp/*' \
         -print |
       sed 's#^\./##' |
-      sort
+      LC_ALL=C sort
   )"
 fi
 

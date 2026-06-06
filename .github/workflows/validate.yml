@@ -23,3 +23,5 @@ jobs:
 
       - name: Validate documentation
         run: scripts/validate-docs.sh
+
+      # validate-install.sh requires a Codex CLI on PATH, so it stays a local smoke test.

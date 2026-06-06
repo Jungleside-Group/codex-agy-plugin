@@ -16,7 +16,7 @@ fi
 CODEX_HOME="$tmp_home" codex plugin marketplace add "$root" >/dev/null
 CODEX_HOME="$tmp_home" codex plugin add codex-agy-plugin@codex-agy-plugin >/dev/null
 
-installed_root="$(find "$plugin_cache" -maxdepth 1 -mindepth 1 -type d | sort | tail -n 1)"
+installed_root="$(find "$plugin_cache" -maxdepth 1 -mindepth 1 -type d | LC_ALL=C sort | tail -n 1)"
 
 if [[ -z "$installed_root" ]]; then
   printf 'Plugin cache was not created under %s.\n' "$plugin_cache" >&2
