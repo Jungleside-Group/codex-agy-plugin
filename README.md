@@ -60,6 +60,7 @@ Codex will use `agy --print` for non-interactive runs by default.
 
 The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wrapper around `agy --print --print-timeout 10m`.
 That path is for this repository checkout; installed Codex skills should resolve the wrapper from the plugin skill directory.
+Place wrapper options before `PROMPT`; arguments after `PROMPT` are included in the prompt text.
 
 Repository root `scripts/validate*.sh` files are development validators. `plugins/codex-agy-plugin/scripts/agy-print.sh` is the runtime wrapper shipped with the plugin.
 

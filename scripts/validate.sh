@@ -33,6 +33,7 @@ require_file "$plugin_license"
 require_file "$skill"
 require_file "$wrapper"
 
+# Keep this list strict so newly bundled plugin files are deliberate.
 expected_plugin_files=$'.codex-plugin/plugin.json\nLICENSE\nscripts/agy-print.sh\nskills/agy/SKILL.md'
 if command -v git >/dev/null 2>&1 && git -C "$root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   actual_plugin_files="$(git -C "$root" ls-files --cached --others --exclude-standard -- plugins/codex-agy-plugin | sed 's#^plugins/codex-agy-plugin/##' | sort)"
@@ -42,6 +43,9 @@ else
       find . -type f \
         ! -name '.DS_Store' \
         ! -name '*.log' \
+        ! -name '*.swp' \
+        ! -name '*.swo' \
+        ! -name '*~' \
         ! -path './.codex-cache/*' \
         ! -path './.hyperweave/*' \
         ! -path './.tmp/*' \
@@ -127,6 +131,11 @@ assert_output \
   "print-timeout alias" \
   $'--print\nReview\n--print-timeout\n15m' \
   --print-timeout 15m "Review"
+
+assert_output \
+  "options after prompt are prompt text" \
+  $'--print\nReview --print-timeout 15m\n--print-timeout\n10m' \
+  "Review" --print-timeout 15m
 
 assert_output \
   "prompt starting with dash" \

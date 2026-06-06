@@ -3,6 +3,7 @@ set -euo pipefail
 
 usage() {
   printf 'Usage: %s [--timeout DURATION|--print-timeout DURATION] [--add-dir PATH]... PROMPT\n' "$0" >&2
+  printf 'Options must appear before PROMPT. Arguments after PROMPT are included in the prompt text.\n' >&2
 }
 
 timeout="10m"
