@@ -36,22 +36,16 @@ This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relati
 ../../scripts/agy-print.sh --add-dir /absolute/path/to/repo "Review the current diff."
 ```
 
-When developing this plugin from its own repository root, use the repo-relative path:
-
-```bash
-plugins/codex-agy-plugin/scripts/agy-print.sh "Review the current diff. Do not modify files. Return findings only."
-```
-
 If the prompt starts with `-`, pass `--` before the prompt:
 
 ```bash
-plugins/codex-agy-plugin/scripts/agy-print.sh -- "-starting prompt text"
+../../scripts/agy-print.sh -- "-starting prompt text"
 ```
 
 Use a bounded timeout when the request may take longer:
 
 ```bash
-agy --print --print-timeout 10m "Review the current diff for bugs and regressions."
+agy --print "Review the current diff for bugs and regressions." --print-timeout 10m
 ```
 
 Use `--add-dir` when Antigravity needs additional workspace roots:

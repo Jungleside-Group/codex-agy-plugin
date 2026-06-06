@@ -57,7 +57,7 @@ fi
 
 prompt="$*"
 if [[ ${#args[@]} -gt 0 ]]; then
-  exec agy "${args[@]}" --print --print-timeout "$timeout" -- "$prompt"
+  exec agy "${args[@]}" --print "$prompt" --print-timeout "$timeout"
 fi
 
-exec agy --print --print-timeout "$timeout" -- "$prompt"
+exec agy --print "$prompt" --print-timeout "$timeout"

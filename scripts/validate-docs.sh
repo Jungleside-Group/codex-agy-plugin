@@ -34,7 +34,8 @@ require_contains "$readme" '^[[:space:]]*plugins/codex-agy-plugin/scripts/agy-pr
 
 require_contains "$skill" '^[[:space:]]*\.\./\.\./scripts/agy-print\.sh' 'SKILL includes installed skill-relative wrapper path'
 require_contains "$skill" 'target repository|target repo' 'SKILL warns about target repository cwd'
-require_contains "$skill" '^[[:space:]]*plugins/codex-agy-plugin/scripts/agy-print\.sh -- "-starting prompt text"' 'SKILL documents dash-prefixed prompts'
+require_contains "$skill" '^[[:space:]]*\.\./\.\./scripts/agy-print\.sh -- "-starting prompt text"' 'SKILL documents dash-prefixed prompts'
+require_contains "$skill" 'agy --print ".*" --print-timeout' 'SKILL documents agy 1.0.6 prompt-first timeout order'
 require_contains "$skill" 'Do not modify files|Return findings only' 'SKILL preserves read-only review guidance'
 
 printf 'Documentation validation passed.\n'

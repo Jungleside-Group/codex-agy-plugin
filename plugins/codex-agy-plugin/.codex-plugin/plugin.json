@@ -1,6 +1,6 @@
 {
   "name": "codex-agy-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Antigravity CLI (agy) integration for OpenAI Codex.",
   "author": {
     "name": "sysCat64",

@@ -43,7 +43,7 @@ with open(marketplace_path, encoding="utf-8") as handle:
 with open(plugin_path, encoding="utf-8") as handle:
     plugin = json.load(handle)
 with open(skill_path, encoding="utf-8") as handle:
-    skill = handle.read()
+    skill = handle.read().replace("\r\n", "\n")
 
 assert marketplace["name"] == "codex-agy-plugin"
 assert marketplace["plugins"][0]["name"] == "codex-agy-plugin"
@@ -82,22 +82,22 @@ assert_output() {
 
 assert_output \
   "prompt without add-dir" \
-  $'--print\n--print-timeout\n10m\n--\nSay exactly: hello' \
+  $'--print\nSay exactly: hello\n--print-timeout\n10m' \
   "Say exactly: hello"
 
 assert_output \
   "prompt with add-dir" \
-  $'--add-dir\n/tmp/example-repo\n--print\n--print-timeout\n10m\n--\nReview' \
+  $'--add-dir\n/tmp/example-repo\n--print\nReview\n--print-timeout\n10m' \
   --add-dir /tmp/example-repo "Review"
 
 assert_output \
   "print-timeout alias" \
-  $'--print\n--print-timeout\n15m\n--\nReview' \
+  $'--print\nReview\n--print-timeout\n15m' \
   --print-timeout 15m "Review"
 
 assert_output \
   "prompt starting with dash" \
-  $'--print\n--print-timeout\n10m\n--\n-starting prompt' \
+  $'--print\n-starting prompt\n--print-timeout\n10m' \
   -- "-starting prompt"
 
 if run_wrapper --timeout >/dev/null 2>&1; then
