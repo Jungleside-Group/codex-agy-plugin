@@ -27,6 +27,8 @@ require_file "$readme"
 require_file "$skill"
 
 require_contains "$readme" 'codex plugin marketplace add' 'README includes install guidance'
+require_contains "$readme" 'codex plugin add codex-agy-plugin@codex-agy-plugin' 'README includes reinstall guidance'
+require_contains "$readme" 'agy 1\.0\.6' 'README states tested agy compatibility'
 require_contains "$readme" 'scripts/validate\.sh' 'README includes core validation command'
 require_contains "$readme" 'scripts/validate-install\.sh' 'README includes install smoke command'
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh' 'README includes repo checkout wrapper path'
@@ -36,6 +38,7 @@ require_contains "$skill" '^[[:space:]]*\.\./\.\./scripts/agy-print\.sh' 'SKILL 
 require_contains "$skill" 'target repository|target repo' 'SKILL warns about target repository cwd'
 require_contains "$skill" '^[[:space:]]*\.\./\.\./scripts/agy-print\.sh -- "-starting prompt text"' 'SKILL documents dash-prefixed prompts'
 require_contains "$skill" 'agy --print ".*" --print-timeout' 'SKILL documents agy 1.0.6 prompt-first timeout order'
+require_contains "$skill" 'agy 1\.0\.6' 'SKILL states tested agy compatibility'
 require_contains "$skill" 'Do not modify files|Return findings only' 'SKILL preserves read-only review guidance'
 
 printf 'Documentation validation passed.\n'

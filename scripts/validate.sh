@@ -23,6 +23,14 @@ require_file "$plugin_manifest"
 require_file "$skill"
 require_file "$wrapper"
 
+expected_plugin_files=$'.codex-plugin/plugin.json\nscripts/agy-print.sh\nskills/agy/SKILL.md'
+actual_plugin_files="$(cd "$plugin_root" && find . -type f -print | sed 's#^\./##' | sort)"
+
+if [[ "$actual_plugin_files" != "$expected_plugin_files" ]]; then
+  printf 'Unexpected files under plugin source: %s\nExpected:\n%s\nActual:\n%s\n' "$plugin_root" "$expected_plugin_files" "$actual_plugin_files" >&2
+  exit 1
+fi
+
 python3 -m json.tool "$marketplace" >/dev/null
 python3 -m json.tool "$plugin_manifest" >/dev/null
 bash -n "$wrapper"

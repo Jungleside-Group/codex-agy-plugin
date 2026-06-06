@@ -11,7 +11,7 @@ Experimental private MVP.
 ## Requirements
 
 - Codex with plugin support.
-- Antigravity CLI installed, authenticated, and available as `agy`.
+- Antigravity CLI installed, authenticated, available as `agy`, and compatible with `agy 1.0.6` print-mode arguments.
 - A trusted local workspace. Do not send secrets or unrelated private data to delegated prompts.
 
 Check the local CLI:
@@ -38,7 +38,7 @@ codex plugin marketplace add "$PWD"
 codex plugin add codex-agy-plugin@codex-agy-plugin
 ```
 
-Start a new Codex thread after installing or reinstalling so the plugin's skill is loaded.
+After editing files under `plugins/codex-agy-plugin/`, rerun `codex plugin add codex-agy-plugin@codex-agy-plugin` so Codex refreshes its plugin cache. Start a new Codex thread after installing or reinstalling so the updated skill is loaded.
 
 ## Usage
 

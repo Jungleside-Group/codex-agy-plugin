@@ -10,7 +10,7 @@ Use the local Antigravity CLI (`agy`) as a second agent from inside Codex.
 ## Before Invoking
 
 1. Inspect enough local context to form a bounded prompt.
-2. Check that `agy` is installed with `command -v agy` and `agy --version`.
+2. Check that `agy` is installed with `command -v agy` and `agy --version`. This plugin is tested with `agy 1.0.6` and expects compatible `agy --print "prompt" --print-timeout 10m` behavior.
 3. Do not install, update, or authenticate `agy` unless the user explicitly asks.
 4. Do not pass secrets, credentials, private keys, tokens, or unrelated personal data into prompts.
 5. Prefer small, explicit prompts that name the repository, relevant files, current goal, and exact output requested.
