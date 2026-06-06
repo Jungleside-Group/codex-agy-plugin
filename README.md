@@ -76,6 +76,7 @@ plugins/codex-agy-plugin/scripts/agy-print.sh -- "-starting prompt text"
 ```
 
 For review and second-opinion requests, Codex should ask `agy` to return findings only and not modify files.
+For release-readiness or repeated reviews, Codex should pass a blocker-only prompt: report only High/Medium issues that can break install, runtime, validation, CI, or distribution; return `APPROVED` when there are no blockers.
 
 ## Validate
 

@@ -39,6 +39,8 @@ require_contains "$readme" 'Repository root `scripts/validate\*\.sh` files are d
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh` is the runtime wrapper' 'README explains plugin runtime wrapper'
 require_contains "$readme" '^[[:space:]]*LICENSE$' 'README includes distributed plugin license'
 require_contains "$readme" '^[[:space:]]*plugins/codex-agy-plugin/scripts/agy-print\.sh -- "-starting prompt text"' 'README documents dash-prefixed prompts'
+require_contains "$readme" 'blocker-only prompt: report only High/Medium issues' 'README documents blocker-only review goal'
+require_contains "$readme" 'return `APPROVED` when there are no blockers' 'README documents review exit condition'
 
 require_contains "$skill" 'Resolve an absolute wrapper path from the installed skill file location' 'SKILL explains installed absolute wrapper resolution'
 require_contains "$skill" 'Place wrapper options before the prompt' 'SKILL documents wrapper option order'
@@ -50,5 +52,8 @@ require_contains "$skill" '^[[:space:]]*"\$wrapper" -- "-starting prompt text"' 
 require_contains "$skill" 'agy --print ".*" --print-timeout' 'SKILL documents agy 1.0.6 prompt-first timeout order'
 require_contains "$skill" 'tested with `agy 1\.0\.6`; use a version with compatible' 'SKILL states tested agy compatibility'
 require_contains "$skill" 'Do not modify files|Return findings only' 'SKILL preserves read-only review guidance'
+require_contains "$skill" 'Release blocker review only' 'SKILL includes blocker-only review prompt'
+require_contains "$skill" 'Report only High or Medium findings' 'SKILL limits blocker-only review findings'
+require_contains "$skill" 'return exactly: APPROVED' 'SKILL defines review approval exit condition'
 
 printf 'Documentation validation passed.\n'

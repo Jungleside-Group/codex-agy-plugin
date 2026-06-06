@@ -64,6 +64,22 @@ Use interactive mode only when the user explicitly wants to continue in Antigrav
 agy --prompt-interactive "Start from this context: ..."
 ```
 
+## Review Prompts
+
+When the user asks for a broad review, pass a concrete review goal instead of a vague "review this" prompt. For example:
+
+```text
+Review the current diff for bugs, security concerns, edge cases, missing checks, and maintainability risks. Do not modify files, run write commands, or apply patches. Return findings only, with file paths when possible.
+```
+
+When the user wants release readiness, repeated review, or convergence, use a blocker-only prompt with an explicit exit condition:
+
+```text
+Release blocker review only. Review the current diff for issues that can break install, runtime, validation, CI, or plugin distribution. Report only High or Medium findings. Do not report Low, Optional, polish, naming, future hardening, or nice-to-have cleanup. If there are no High/Medium blockers, return exactly: APPROVED
+```
+
+Treat Low and Optional findings from a blocker-only review as backlog candidates, not as required follow-up unless the user explicitly asks to pursue them.
+
 ## Sandbox Handling
 
 `agy` may create logs, start a local language-server process, or open network connections. If it fails with filesystem, logging, or localhost bind errors inside Codex sandboxing, explain the failure briefly and rerun only with the user's approval through Codex's normal escalation flow.
