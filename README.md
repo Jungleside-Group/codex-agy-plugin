@@ -79,13 +79,11 @@ For review and second-opinion requests, Codex should ask `agy` to return finding
 scripts/validate.sh
 ```
 
-Optional local install smoke test:
+Optional docs and local install validation:
 
 ```bash
-tmp_home="$(mktemp -d)"
-CODEX_HOME="$tmp_home" codex plugin marketplace add "$PWD"
-CODEX_HOME="$tmp_home" codex plugin add codex-agy-plugin@codex-agy-plugin
-CODEX_HOME="$tmp_home" codex plugin list
+scripts/validate-docs.sh
+scripts/validate-install.sh
 ```
 
 ## Repository Layout
@@ -98,6 +96,8 @@ plugins/
     skills/agy/SKILL.md
     scripts/agy-print.sh
 scripts/validate.sh
+scripts/validate-docs.sh
+scripts/validate-install.sh
 ```
 
 ## Notes

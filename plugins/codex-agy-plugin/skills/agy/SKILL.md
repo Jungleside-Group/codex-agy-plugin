@@ -30,7 +30,7 @@ For reviews and second opinions, include a no-write instruction in the prompt:
 agy --print "Review the current diff. Do not modify files, run write commands, or apply patches. Return findings only."
 ```
 
-This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relative to this skill directory. Resolve that path from the installed skill file or plugin root, not from the target repository being reviewed. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling:
+This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relative to this skill directory. Resolve that path from the installed skill file or plugin root, not from the target repository being reviewed. Do not run `../../scripts/agy-print.sh` as a literal path from the target repository's current working directory. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling:
 
 ```bash
 ../../scripts/agy-print.sh --add-dir /absolute/path/to/repo "Review the current diff."

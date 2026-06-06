@@ -32,11 +32,11 @@ if [[ ! -x "$wrapper" ]]; then
   exit 1
 fi
 
-python3 - "$marketplace" "$plugin_manifest" "$skill" "$root/README.md" <<'PY'
+python3 - "$marketplace" "$plugin_manifest" "$skill" <<'PY'
 import json
 import sys
 
-marketplace_path, plugin_path, skill_path, readme_path = sys.argv[1:5]
+marketplace_path, plugin_path, skill_path = sys.argv[1:4]
 
 with open(marketplace_path, encoding="utf-8") as handle:
     marketplace = json.load(handle)
@@ -44,8 +44,6 @@ with open(plugin_path, encoding="utf-8") as handle:
     plugin = json.load(handle)
 with open(skill_path, encoding="utf-8") as handle:
     skill = handle.read()
-with open(readme_path, encoding="utf-8") as handle:
-    readme = handle.read()
 
 assert marketplace["name"] == "codex-agy-plugin"
 assert marketplace["plugins"][0]["name"] == "codex-agy-plugin"
@@ -57,10 +55,6 @@ assert skill.startswith("---\n")
 frontmatter, _, _ = skill[4:].partition("\n---")
 assert "name: agy" in frontmatter
 assert "description:" in frontmatter
-assert "../../scripts/agy-print.sh" in skill
-assert "plugins/codex-agy-plugin/scripts/agy-print.sh" in readme
-assert '-- "-starting prompt text"' in skill
-assert '-- "-starting prompt text"' in readme
 PY
 
 cat > "$mock_bin/agy" <<'SH'
