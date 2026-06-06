@@ -1,5 +1,7 @@
 # codex-agy-plugin
 
+![codex-agy-plugin banner](banner.png)
+
 Antigravity CLI (`agy`) integration for OpenAI Codex.
 
 This is a small Codex plugin that teaches Codex how to call the local Antigravity CLI for second opinions, planning, code review, and delegated analysis.

@@ -26,6 +26,7 @@ require_contains() {
 require_file "$readme"
 require_file "$skill"
 
+require_contains "$readme" '!\[codex-agy-plugin banner\]\(banner\.png\)' 'README includes banner image'
 require_contains "$readme" 'codex plugin marketplace add' 'README includes install guidance'
 require_contains "$readme" 'codex plugin add codex-agy-plugin@codex-agy-plugin' 'README includes reinstall guidance'
 require_contains "$readme" 'tested with `agy 1\.0\.6` and compatible print-mode arguments' 'README states tested agy compatibility'
