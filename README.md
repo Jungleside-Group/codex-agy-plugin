@@ -34,7 +34,7 @@ codex plugin add codex-agy-plugin@codex-agy-plugin
 For local development:
 
 ```bash
-codex plugin marketplace add /Users/martha/Documents/Repositories/codex-agy-plugin
+codex plugin marketplace add "$PWD"
 codex plugin add codex-agy-plugin@codex-agy-plugin
 ```
 
@@ -60,6 +60,18 @@ Codex will use `agy --print` for non-interactive runs by default.
 
 The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wrapper around `agy --print --print-timeout 10m`.
 
+```bash
+plugins/codex-agy-plugin/scripts/agy-print.sh --print-timeout 15m "Review this repository. Do not modify files. Return findings only."
+```
+
+For review and second-opinion requests, Codex should ask `agy` to return findings only and not modify files.
+
+## Validate
+
+```bash
+scripts/validate.sh
+```
+
 ## Repository Layout
 
 ```text
@@ -69,6 +81,7 @@ plugins/
     .codex-plugin/plugin.json
     skills/agy/SKILL.md
     scripts/agy-print.sh
+scripts/validate.sh
 ```
 
 ## Notes

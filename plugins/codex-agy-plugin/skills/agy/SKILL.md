@@ -14,6 +14,7 @@ Use the local Antigravity CLI (`agy`) as a second agent from inside Codex.
 3. Do not install, update, or authenticate `agy` unless the user explicitly asks.
 4. Do not pass secrets, credentials, private keys, tokens, or unrelated personal data into prompts.
 5. Prefer small, explicit prompts that name the repository, relevant files, current goal, and exact output requested.
+6. Default to read-only delegation. Unless the user explicitly asks Antigravity to edit files, the prompt must tell `agy` not to modify files, run write commands, or apply patches.
 
 ## Invocation Modes
 
@@ -21,6 +22,12 @@ Use non-interactive print mode for most Codex workflows:
 
 ```bash
 agy --print "Review this plan for risks and missing tests: ..."
+```
+
+For reviews and second opinions, include a no-write instruction in the prompt:
+
+```bash
+agy --print "Review the current diff. Do not modify files, run write commands, or apply patches. Return findings only."
 ```
 
 This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relative to this skill directory. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling:
@@ -38,7 +45,7 @@ agy --print --print-timeout 10m "Review the current diff for bugs and regression
 Use `--add-dir` when Antigravity needs additional workspace roots:
 
 ```bash
-agy --add-dir /absolute/path/to/repo --print "Analyze this repository slice: ..."
+agy --add-dir /absolute/path/to/repo --print "Analyze this repository slice. Do not modify files, run write commands, or apply patches. Return findings only."
 ```
 
 Use interactive mode only when the user explicitly wants to continue in Antigravity:
@@ -53,6 +60,8 @@ agy --prompt-interactive "Start from this context: ..."
 
 Do not use `--dangerously-skip-permissions` unless the user explicitly requests it for a trusted local workspace.
 
+If `agy` tries to edit files during a review or second-opinion request, stop the run and inspect the diff. Revert only changes clearly introduced by that `agy` run; do not revert unrelated or pre-existing user changes. If the source of a change is unclear, ask the user before touching it.
+
 ## Response Contract
 
 After `agy` returns:
@@ -61,3 +70,4 @@ After `agy` returns:
 2. Separate confirmed local facts from Antigravity suggestions.
 3. Verify any proposed code change against local files before applying it.
 4. If Antigravity's answer is unclear or too broad, narrow the prompt and run a follow-up rather than treating it as authoritative.
+5. Do not apply Antigravity's suggested edits unless the user has explicitly moved the task from review/delegation into implementation.

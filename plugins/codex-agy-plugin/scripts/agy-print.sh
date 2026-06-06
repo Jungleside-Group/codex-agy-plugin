@@ -2,7 +2,7 @@
 set -euo pipefail
 
 usage() {
-  printf 'Usage: %s [--timeout DURATION] [--add-dir PATH]... PROMPT\n' "$0" >&2
+  printf 'Usage: %s [--timeout DURATION|--print-timeout DURATION] [--add-dir PATH]... PROMPT\n' "$0" >&2
 }
 
 timeout="10m"
@@ -10,7 +10,7 @@ args=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --timeout)
+    --timeout|--print-timeout)
       if [[ $# -lt 2 ]]; then
         usage
         exit 2
@@ -57,4 +57,3 @@ fi
 
 prompt="$*"
 exec agy "${args[@]}" --print --print-timeout "$timeout" "$prompt"
-

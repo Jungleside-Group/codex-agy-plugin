@@ -1,6 +1,6 @@
 {
   "name": "codex-agy-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Antigravity CLI (agy) integration for OpenAI Codex.",
   "author": {
     "name": "sysCat64",
@@ -27,6 +27,6 @@
       "Request second-opinion reviews",
       "Delegate planning and analysis"
     ],
-    "defaultPrompt": "Use Antigravity CLI to review the current task."
+    "defaultPrompt": "Use Antigravity CLI to review the current task without modifying files."
   }
 }
