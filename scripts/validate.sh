@@ -32,16 +32,20 @@ if [[ ! -x "$wrapper" ]]; then
   exit 1
 fi
 
-python3 - "$marketplace" "$plugin_manifest" <<'PY'
+python3 - "$marketplace" "$plugin_manifest" "$skill" "$root/README.md" <<'PY'
 import json
 import sys
 
-marketplace_path, plugin_path = sys.argv[1:3]
+marketplace_path, plugin_path, skill_path, readme_path = sys.argv[1:5]
 
 with open(marketplace_path, encoding="utf-8") as handle:
     marketplace = json.load(handle)
 with open(plugin_path, encoding="utf-8") as handle:
     plugin = json.load(handle)
+with open(skill_path, encoding="utf-8") as handle:
+    skill = handle.read()
+with open(readme_path, encoding="utf-8") as handle:
+    readme = handle.read()
 
 assert marketplace["name"] == "codex-agy-plugin"
 assert marketplace["plugins"][0]["name"] == "codex-agy-plugin"
@@ -49,6 +53,14 @@ assert marketplace["plugins"][0]["source"]["path"] == "./plugins/codex-agy-plugi
 assert plugin["name"] == "codex-agy-plugin"
 assert plugin["skills"] == "./skills/"
 assert plugin["interface"]["displayName"] == "Codex Agy"
+assert skill.startswith("---\n")
+frontmatter, _, _ = skill[4:].partition("\n---")
+assert "name: agy" in frontmatter
+assert "description:" in frontmatter
+assert "../../scripts/agy-print.sh" in skill
+assert "plugins/codex-agy-plugin/scripts/agy-print.sh" in readme
+assert '-- "-starting prompt text"' in skill
+assert '-- "-starting prompt text"' in readme
 PY
 
 cat > "$mock_bin/agy" <<'SH'
@@ -76,22 +88,22 @@ assert_output() {
 
 assert_output \
   "prompt without add-dir" \
-  $'--print\n--print-timeout\n10m\nSay exactly: hello' \
+  $'--print\n--print-timeout\n10m\n--\nSay exactly: hello' \
   "Say exactly: hello"
 
 assert_output \
   "prompt with add-dir" \
-  $'--add-dir\n/tmp/example-repo\n--print\n--print-timeout\n10m\nReview' \
+  $'--add-dir\n/tmp/example-repo\n--print\n--print-timeout\n10m\n--\nReview' \
   --add-dir /tmp/example-repo "Review"
 
 assert_output \
   "print-timeout alias" \
-  $'--print\n--print-timeout\n15m\nReview' \
+  $'--print\n--print-timeout\n15m\n--\nReview' \
   --print-timeout 15m "Review"
 
 assert_output \
   "prompt starting with dash" \
-  $'--print\n--print-timeout\n10m\n-starting prompt' \
+  $'--print\n--print-timeout\n10m\n--\n-starting prompt' \
   -- "-starting prompt"
 
 if run_wrapper --timeout >/dev/null 2>&1; then

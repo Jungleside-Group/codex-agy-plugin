@@ -59,6 +59,7 @@ Delegate this bug investigation to agy and summarize what it finds.
 Codex will use `agy --print` for non-interactive runs by default.
 
 The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wrapper around `agy --print --print-timeout 10m`.
+That path is for this repository checkout; installed Codex skills should resolve the wrapper from the plugin skill directory.
 
 ```bash
 plugins/codex-agy-plugin/scripts/agy-print.sh --print-timeout 15m "Review this repository. Do not modify files. Return findings only."
@@ -76,6 +77,15 @@ For review and second-opinion requests, Codex should ask `agy` to return finding
 
 ```bash
 scripts/validate.sh
+```
+
+Optional local install smoke test:
+
+```bash
+tmp_home="$(mktemp -d)"
+CODEX_HOME="$tmp_home" codex plugin marketplace add "$PWD"
+CODEX_HOME="$tmp_home" codex plugin add codex-agy-plugin@codex-agy-plugin
+CODEX_HOME="$tmp_home" codex plugin list
 ```
 
 ## Repository Layout
