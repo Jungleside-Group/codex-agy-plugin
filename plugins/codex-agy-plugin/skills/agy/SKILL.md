@@ -30,7 +30,7 @@ For reviews and second opinions, include a no-write instruction in the prompt:
 agy --print "Review the current diff. Do not modify files, run write commands, or apply patches. Return findings only."
 ```
 
-This plugin also includes a small wrapper at `scripts/agy-print.sh` under the installed plugin root. Resolve an absolute wrapper path from the installed skill file location, not from the target repository being reviewed. For example, if this skill file is installed at `/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md`, the wrapper is `/absolute/path/to/codex-agy-plugin/scripts/agy-print.sh`. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling. Place wrapper options before the prompt; arguments after the prompt are included in the prompt text:
+This plugin also includes a small wrapper at `scripts/agy-print.sh` under the installed plugin root. Resolve an absolute wrapper path from the installed skill file location, not from the target repository being reviewed. For example, if this skill file is installed at `/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md`, the wrapper is `/absolute/path/to/codex-agy-plugin/scripts/agy-print.sh`. Prefer the wrapper when you want a default 10 minute timeout and simple `--add-dir` handling. Place wrapper options before the prompt; arguments after the prompt are included in the prompt text. Call `agy` directly when you need raw Antigravity CLI options the wrapper does not accept:
 
 ```bash
 skill_path="/absolute/path/to/codex-agy-plugin/skills/agy/SKILL.md"

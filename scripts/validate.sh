@@ -3,6 +3,7 @@ set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 marketplace="$root/.agents/plugins/marketplace.json"
+root_license="$root/LICENSE"
 plugin_root="$root/plugins/codex-agy-plugin"
 plugin_manifest="$plugin_root/.codex-plugin/plugin.json"
 plugin_license="$plugin_root/LICENSE"
@@ -28,10 +29,16 @@ require_command() {
 
 require_command python3
 require_file "$marketplace"
+require_file "$root_license"
 require_file "$plugin_manifest"
 require_file "$plugin_license"
 require_file "$skill"
 require_file "$wrapper"
+
+if ! cmp -s "$root_license" "$plugin_license"; then
+  printf 'Plugin LICENSE must match root LICENSE byte-for-byte.\n' >&2
+  exit 1
+fi
 
 # Keep this list strict so newly bundled plugin files are deliberate.
 expected_plugin_files=$'.codex-plugin/plugin.json\nLICENSE\nscripts/agy-print.sh\nskills/agy/SKILL.md'

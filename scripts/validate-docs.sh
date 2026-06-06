@@ -33,6 +33,7 @@ require_contains "$readme" 'scripts/validate\.sh' 'README includes core validati
 require_contains "$readme" 'scripts/validate-install\.sh' 'README includes install smoke command'
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh' 'README includes repo checkout wrapper path'
 require_contains "$readme" 'Place wrapper options before `PROMPT`' 'README documents wrapper option order'
+require_contains "$readme" 'Call `agy` directly when you need raw Antigravity CLI options' 'README documents raw agy option fallback'
 require_contains "$readme" 'Repository root `scripts/validate\*\.sh` files are development validators' 'README explains root validation scripts'
 require_contains "$readme" 'plugins/codex-agy-plugin/scripts/agy-print\.sh` is the runtime wrapper' 'README explains plugin runtime wrapper'
 require_contains "$readme" '^[[:space:]]*LICENSE$' 'README includes distributed plugin license'
@@ -40,6 +41,7 @@ require_contains "$readme" '^[[:space:]]*plugins/codex-agy-plugin/scripts/agy-pr
 
 require_contains "$skill" 'Resolve an absolute wrapper path from the installed skill file location' 'SKILL explains installed absolute wrapper resolution'
 require_contains "$skill" 'Place wrapper options before the prompt' 'SKILL documents wrapper option order'
+require_contains "$skill" 'Call `agy` directly when you need raw Antigravity CLI options' 'SKILL documents raw agy option fallback'
 require_contains "$skill" 'skill_path="/absolute/path/to/codex-agy-plugin/skills/agy/SKILL\.md"' 'SKILL includes installed skill path example'
 require_contains "$skill" 'dirname "\$skill_path"' 'SKILL derives wrapper path from installed skill path'
 require_contains "$skill" 'target repository|target repo' 'SKILL warns about target repository cwd'
