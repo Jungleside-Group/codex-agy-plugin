@@ -56,4 +56,8 @@ if ! command -v agy >/dev/null 2>&1; then
 fi
 
 prompt="$*"
-exec agy "${args[@]}" --print --print-timeout "$timeout" "$prompt"
+if [[ ${#args[@]} -gt 0 ]]; then
+  exec agy "${args[@]}" --print --print-timeout "$timeout" "$prompt"
+fi
+
+exec agy --print --print-timeout "$timeout" "$prompt"

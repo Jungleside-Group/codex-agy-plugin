@@ -36,6 +36,18 @@ This plugin also includes a small wrapper at `../../scripts/agy-print.sh` relati
 ../../scripts/agy-print.sh --add-dir /absolute/path/to/repo "Review the current diff."
 ```
 
+From the repository root, use the repo-relative path:
+
+```bash
+plugins/codex-agy-plugin/scripts/agy-print.sh "Review the current diff. Do not modify files. Return findings only."
+```
+
+If the prompt starts with `-`, pass `--` before the prompt:
+
+```bash
+plugins/codex-agy-plugin/scripts/agy-print.sh -- "-starting prompt text"
+```
+
 Use a bounded timeout when the request may take longer:
 
 ```bash

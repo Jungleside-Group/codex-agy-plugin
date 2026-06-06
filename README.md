@@ -64,6 +64,12 @@ The plugin also ships `plugins/codex-agy-plugin/scripts/agy-print.sh`, a tiny wr
 plugins/codex-agy-plugin/scripts/agy-print.sh --print-timeout 15m "Review this repository. Do not modify files. Return findings only."
 ```
 
+If the prompt begins with `-`, separate wrapper options from the prompt with `--`:
+
+```bash
+plugins/codex-agy-plugin/scripts/agy-print.sh -- "-starting prompt text"
+```
+
 For review and second-opinion requests, Codex should ask `agy` to return findings only and not modify files.
 
 ## Validate

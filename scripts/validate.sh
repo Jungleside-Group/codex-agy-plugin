@@ -7,6 +7,9 @@ plugin_root="$root/plugins/codex-agy-plugin"
 plugin_manifest="$plugin_root/.codex-plugin/plugin.json"
 skill="$plugin_root/skills/agy/SKILL.md"
 wrapper="$plugin_root/scripts/agy-print.sh"
+mock_bin="$(mktemp -d "${TMPDIR:-/tmp}/codex-agy-validate.XXXXXX")"
+
+trap 'rm -rf "$mock_bin"' EXIT
 
 require_file() {
   if [[ ! -f "$1" ]]; then
@@ -48,5 +51,52 @@ assert plugin["skills"] == "./skills/"
 assert plugin["interface"]["displayName"] == "Codex Agy"
 PY
 
-printf 'Validation passed.\n'
+cat > "$mock_bin/agy" <<'SH'
+#!/usr/bin/env bash
+printf '%s\n' "$@"
+SH
+chmod +x "$mock_bin/agy"
 
+run_wrapper() {
+  PATH="$mock_bin:$PATH" "$wrapper" "$@"
+}
+
+assert_output() {
+  local label="$1"
+  local expected="$2"
+  shift 2
+
+  local actual
+  actual="$(run_wrapper "$@")"
+  if [[ "$actual" != "$expected" ]]; then
+    printf 'Wrapper test failed: %s\nExpected:\n%s\nActual:\n%s\n' "$label" "$expected" "$actual" >&2
+    exit 1
+  fi
+}
+
+assert_output \
+  "prompt without add-dir" \
+  $'--print\n--print-timeout\n10m\nSay exactly: hello' \
+  "Say exactly: hello"
+
+assert_output \
+  "prompt with add-dir" \
+  $'--add-dir\n/tmp/example-repo\n--print\n--print-timeout\n10m\nReview' \
+  --add-dir /tmp/example-repo "Review"
+
+assert_output \
+  "print-timeout alias" \
+  $'--print\n--print-timeout\n15m\nReview' \
+  --print-timeout 15m "Review"
+
+assert_output \
+  "prompt starting with dash" \
+  $'--print\n--print-timeout\n10m\n-starting prompt' \
+  -- "-starting prompt"
+
+if run_wrapper --timeout >/dev/null 2>&1; then
+  printf 'Wrapper test failed: missing timeout value should fail.\n' >&2
+  exit 1
+fi
+
+printf 'Validation passed.\n'
