@@ -1,5 +1,13 @@
+# macOS
 .DS_Store
+
+# Logs
 *.log
+
+# Local tool caches and scratch output
 .codex-cache/
 .hyperweave/
 .tmp/
+
+# Local assistant settings
+.claude/settings.local.json
