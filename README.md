@@ -80,6 +80,12 @@ plugins/codex-agy-plugin/scripts/agy-print.sh -- "-starting prompt text"
 For review and second-opinion requests, Codex should ask `agy` to return findings only and not modify files.
 For release-readiness or repeated reviews, Codex should pass a blocker-only prompt: report only High/Medium issues that can break install, runtime, validation, CI, or distribution; return `APPROVED` when there are no blockers.
 
+## Known Issues
+
+On Windows, there is a report that `agy --print` can exit with code `0` but produce empty stdout when launched from Codex/non-interactive PowerShell, while the same command works from an interactive PowerShell session. See [Issue #1](https://github.com/sysCat64/codex-agy-plugin/issues/1).
+
+This plugin relies on `agy --print` writing the final response to stdout. It does not read Antigravity internal transcript or log files as a fallback because those files are not a stable integration boundary.
+
 ## Validate
 
 ```bash
