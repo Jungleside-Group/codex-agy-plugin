@@ -12,15 +12,14 @@
   "prConcurrentLimit": 3,
   "packageRules": [
     {
-      "description": "Group minor/patch updates into one weekly PR (dependabot parity); majors stay individual for deliberate review.",
+      "description": "Keep MAJORs individual (dependabot parity): config:recommended pulls in group:monorepos whose rules would otherwise group majors (e.g. the React monorepo).",
       "matchUpdateTypes": [
-        "minor",
-        "patch"
+        "major"
       ],
-      "groupName": "minor & patch dependencies"
+      "groupName": null
     },
     {
-      "description": "All GitHub Actions bumps in one PR (dependabot 'github-actions' group parity).",
+      "description": "All GitHub Actions bumps in one PR (dependabot 'github-actions' group parity, majors included).",
       "matchManagers": [
         "github-actions"
       ],
