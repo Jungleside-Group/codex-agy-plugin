@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Replaces .github/dependabot.yml (estate Renovate migration 2026-07-12). Inert until the Mend Renovate GitHub App is installed.",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "America/Los_Angeles",
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "minimumReleaseAge": "5 days",
+  "prConcurrentLimit": 3,
+  "packageRules": [
+    {
+      "description": "Group minor/patch updates into one weekly PR (dependabot parity); majors stay individual for deliberate review.",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "minor & patch dependencies"
+    },
+    {
+      "description": "All GitHub Actions bumps in one PR (dependabot 'github-actions' group parity).",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    }
+  ]
+}
