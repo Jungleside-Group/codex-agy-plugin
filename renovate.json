@@ -19,11 +19,12 @@
       "groupName": null
     },
     {
-      "description": "All GitHub Actions bumps in one PR (dependabot 'github-actions' group parity, majors included).",
+      "description": "All GitHub Actions bumps in one PR (dependabot 'github-actions' group parity, majors included; separateMajorMinor off so majors join the group).",
       "matchManagers": [
         "github-actions"
       ],
-      "groupName": "github-actions"
+      "groupName": "github-actions",
+      "separateMajorMinor": false
     }
   ]
 }
