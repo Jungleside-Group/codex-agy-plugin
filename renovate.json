@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "mode": "full",
   "description": "Replaces .github/dependabot.yml (estate Renovate migration 2026-07-12). Inert until the Mend Renovate GitHub App is installed.",
   "extends": [
     "config:recommended"
